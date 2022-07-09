@@ -1,6 +1,7 @@
 from LinkedList import LinkedList, DoubleLinkedList
 import unittest
 
+
 class LinkedListTest(unittest.TestCase):
     def test_creating_ll(self):
         list1 = LinkedList("test")
@@ -23,19 +24,22 @@ class LinkedListTest(unittest.TestCase):
         first_node = llist.get_node_by_index(0)
         second_node = llist.get_node_by_index(1)
         third_node = llist.get_node_by_index(2)
-        self.assertTrue(first_node.next is second_node)
-        self.assertTrue(second_node.next is third_node)
+        self.assertTrue(first_node.next is second_node)  # todo self.assertIs
+        self.assertTrue(second_node.next is third_node)  # todo self.assertIs
         self.assertIsNone(third_node.next)
 
     def test_length(self):
-        ll = LinkedList("qwerty")
-        ll2 = LinkedList()
-        self.assertEqual(6, len(ll))
-        self.assertEqual(0, len(ll2))
+        list_ll = [
+            (LinkedList("qwerty"), 6),
+            (LinkedList(), 0)
+        ]
+        for ll, len_ in list_ll:
+            with self.subTest(list=ll, len=len_):
+                self.assertEqual(len_, len(ll))
 
     def test_append(self):
         ll = LinkedList()
-        ll.append(0)
+        ll.append(0)  # todo for
         ll.append(1)
         ll.append(0)
         self.assertEqual("[0, 1, 0]", str(ll))
@@ -77,7 +81,7 @@ class LinkedListTest(unittest.TestCase):
         ll2 = LinkedList([1, 2, "X", 4, 5])
         ll3 = LinkedList([1, 2, 3, 4, "X"])
 
-        del (ll1[0])
+        del ll1[0]
         self.assertEqual("[2, 3, 4, 5]", str(ll1))
         del (ll2[2])
         self.assertEqual("[1, 2, 4, 5]", str(ll2))

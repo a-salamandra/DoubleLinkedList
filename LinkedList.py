@@ -3,6 +3,7 @@ from typing import Iterable, Optional, Any
 
 from Node import Node, DoubleLinkedNode
 
+
 class LinkedList(MutableSequence):
     node_type = Node
 
@@ -41,11 +42,11 @@ class LinkedList(MutableSequence):
 
     def __getitem__(self, index: int) -> Any:
         node = self.get_node_by_index(index)
-        return node._value
+        return node._value  # fixme обращение к protected атрибуту
 
     def __setitem__(self, index: int, value: Any) -> None:
         node = self.get_node_by_index(index)
-        node._value = value
+        node._value = value  # fixme обращение к protected атрибуту
 
     def __delitem__(self, key: int) -> None:
 
@@ -59,7 +60,7 @@ class LinkedList(MutableSequence):
             self._tail = new_tail
         else:
             previous_node = self.get_node_by_index(key - 1)
-            deleted_node = self.get_node_by_index(key)
+            deleted_node = self.get_node_by_index(key)  # todo next_node = previous_node.next.next
             self.link_nodes(previous_node, deleted_node.next)
 
         self._length -= 1
@@ -74,11 +75,14 @@ class LinkedList(MutableSequence):
 
         inserted_node = self.node_type(data)
 
+        # index >= self._length:
+        # index == 0
+        # todo поменять местами можно в if-elif-else и избавиться от кусочка сверху
         if index == 0:
             head_node = self._head
             self.link_nodes(inserted_node, head_node)
             self._head = inserted_node
-        elif index >= self._length:
+        elif index >= self._length:  #
             self.append(data)
             return
         else:
@@ -94,12 +98,12 @@ class LinkedList(MutableSequence):
         return f"{[i for i in self]}"
 
     def __repr__(self) -> str:
-         return f"{self.__class__.__name__}({[i for i in self]})"
+        return f"{self.__class__.__name__}({[i for i in self]})"
 
     def __len__(self) -> int:
         return self._length
 
-    def validate_index(self, index: int, out_of_range_allowed = False) -> None:
+    def validate_index(self, index: int, out_of_range_allowed: bool = False) -> None:
 
         if not isinstance(index, int):
             raise TypeError("index must be an integer")
@@ -115,7 +119,7 @@ class DoubleLinkedList(LinkedList):
 
     node_type = DoubleLinkedNode
 
-    def __init__(self, data: Iterable = None):
+    def __init__(self, data: Iterable = None):  # fixme удалить конструктор
         super().__init__(data)
 
     @staticmethod

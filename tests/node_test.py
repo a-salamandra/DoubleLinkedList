@@ -1,13 +1,15 @@
-from Node import Node, DoubleLinkedNode
 import unittest
+
+from Node import Node, DoubleLinkedNode
+
 
 class NodeTest(unittest.TestCase):
     def test_create_nodes(self):
         node = Node("some text", None)
         another_node = Node("more text", node)
         node.next = another_node
-        self.assertEqual(node.next, another_node)
-        self.assertEqual(another_node.next, node)
+        self.assertEqual(node.next, another_node)  # todo assertIs
+        self.assertEqual(another_node.next, node)  # todo assertIs
 
     def test_node_str(self):
         node1 = Node("one")
@@ -27,7 +29,8 @@ class NodeTest(unittest.TestCase):
         node2 = "not a node"
         with self.assertRaises(TypeError) as e:
             node1.next = node2
-        self.assertEqual("passed node should be either None or Node", e.exception.args[0])
+        self.assertEqual("passed node should be either None or Node", e.exception.args[0])  # todo str(e)
+
 
 class DoubleLinkedNodeTest(unittest.TestCase):
 
@@ -72,7 +75,6 @@ class DoubleLinkedNodeTest(unittest.TestCase):
         #with next and prev
         node2.next = node3
         self.assertEqual("DoubleLinkedNode(2, DoubleLinkedNode(3, None, None), DoubleLinkedNode(1, None, None))", repr(node2))
-
 
     def test_not_instance_dl_node(self):
         node = DoubleLinkedNode("data")

@@ -1,9 +1,10 @@
 from typing import Any, Optional
 
+
 class Node:
 
     def __init__(self, value_: Any, next_: Optional["Node"] = None) -> None:
-        self._value = value_
+        self._value = value_  # todo public or property
         self.next = next_
 
     @property
