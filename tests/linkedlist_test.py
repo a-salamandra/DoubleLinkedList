@@ -29,10 +29,13 @@ class LinkedListTest(unittest.TestCase):
         self.assertIsNone(third_node.next)
 
     def test_length(self):
-        ll = LinkedList("qwerty")
-        ll2 = LinkedList()
-        self.assertEqual(6, len(ll))
-        self.assertEqual(0, len(ll2))
+        list_ll = [
+            (LinkedList("qwerty"), 6),
+            (LinkedList(), 0)
+        ]
+        for ll, len_ in list_ll:
+            with self.subTest(list=ll, len=len_):
+                self.assertEqual(len_, len(ll))
 
     def test_append(self):
         ll = LinkedList()
