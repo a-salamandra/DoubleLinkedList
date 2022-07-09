@@ -119,25 +119,7 @@ class DoubleLinkedList(LinkedList):
         super().__init__(data)
 
     @staticmethod
-    def link_nodes(left_node: DoubleLinkedNode, right_node: DoubleLinkedNode) -> None:
+    def link_nodes(left_node: Optional['DoubleLinkedNode'] = None, right_node: Optional['DoubleLinkedNode'] = None) -> None:
         left_node.next = right_node
         right_node.prev = left_node
 
-    def __delitem__(self, key: int) -> None:
-
-        self.validate_index(key)
-
-        if key == 0:
-            self._head = self._head.next
-            self._head.prev = None
-        elif key == self._length - 1:
-            new_tail = self.get_node_by_index(key - 1)
-            new_tail.next = None
-            self._tail.prev = None
-            self._tail = new_tail
-        else:
-            previous_node = self.get_node_by_index(key - 1)
-            deleted_node = self.get_node_by_index(key)
-            self.link_nodes(previous_node, deleted_node.next)
-
-        self._length -= 1
